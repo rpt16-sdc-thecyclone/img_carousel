@@ -13,7 +13,7 @@ app.use(express.static(path.join(__dirname, '/../public')));
 
 app.get('/images', (req, res) => {
   const { id } = req.query;
-
+  console.log('inside get', id)
   // Get data from database
   db.getProductImages(id, (err, results) => {
     if (err) {
@@ -31,6 +31,31 @@ app.get('/images', (req, res) => {
     console.log(data);
     res.status(200).send(data);
   });
+});
+
+
+app.post('/images', (req, res) => {
+  const { id } = req.query;
+  //add db code to add item
+
+});
+
+app.put('/images', (req, res) => {
+  const { id } = req.query;
+
+});
+
+app.delete('/images', (req, res) => {
+  const id = req.query.prod_id;
+  console.log(id);
+  db.deleteItem(id, (err, result) => {
+    if (err) {
+      console.log('Error while deleting', err)
+    } else {
+      res.send(result)
+    }
+  })
+
 });
 
 app.listen(PORT, () => {
