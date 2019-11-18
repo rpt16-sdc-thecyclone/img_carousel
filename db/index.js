@@ -17,6 +17,27 @@ const getProductImages = function (id, callback) {
     });
 };
 
+const addItem = function(callack) {
+
+};
+
+const editItem = function (id, callback) {
+  knex('products')
+  .where({id: id})
+  .update({name: 'This item was updated'})
+  .then(res => {
+    if (res > 0) {
+      callback(null, 200)
+    } else {
+      callback(null, 'No file to update')
+    }
+  })
+  .catch(err => {
+    console.log(err);
+    callback(err)
+  })
+};
+
 const deleteItem = function (id, callback) {
   console.log('delete path hit')
   knex('images')
@@ -40,4 +61,6 @@ const deleteItem = function (id, callback) {
 module.exports = {
   getProductImages,
   deleteItem,
+  addItem,
+  editItem,
 };

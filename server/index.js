@@ -35,13 +35,26 @@ app.get('/images', (req, res) => {
 
 
 app.post('/images', (req, res) => {
-  const { id } = req.query;
-  //add db code to add item
+  db.addItem((err, result) => {
+    if (err) {
+      console.log('Error while adding item', err);
+    } else {
+      res.send(result)
+    }
+  })
 
 });
 
 app.put('/images', (req, res) => {
-  const { id } = req.query;
+  const id = req.query.prod_id;
+  console.log(id);
+  db.editItem(id, (err, result) => {
+    if (err) {
+      console.log('edit error', err);
+    } else {
+      res.send(result)
+    }
+  })
 
 });
 
