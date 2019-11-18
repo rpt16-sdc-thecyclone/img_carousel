@@ -17,8 +17,29 @@ const getProductImages = function (id, callback) {
     });
 };
 
-const addItem = function(callack) {
-
+const addItem = function(callback) {
+  knex('products')
+  .insert({name: 'New Item added!!!!'})
+  .then(res => {
+    knex('images')
+    .insert([{
+      img_small: 'https://fec-product-images.s3.us-east-2.amazonaws.com/s-l64.jpg',
+      img_large: 'https://fec-product-images.s3.us-east-2.amazonaws.com/s-l500.jpg',
+      img_zoom: 'https://fec-product-images.s3.us-east-2.amazonaws.com/s-l1600.jpg',
+      product_id: res,
+    }])
+    .then(result => {
+      if (result) {
+        callback(null, result)
+      } else {
+        callback('error updating')
+      }
+    })
+  })
+  .catch(err=> {
+    console.log(err)
+    callback(err)
+  })
 };
 
 const editItem = function (id, callback) {

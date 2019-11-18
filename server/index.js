@@ -42,7 +42,6 @@ app.post('/images', (req, res) => {
       res.send(result)
     }
   })
-
 });
 
 app.put('/images', (req, res) => {
