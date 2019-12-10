@@ -1,4 +1,5 @@
 var faker = require('faker');
+const fs = require('fs');
 
 
 var productImages = function(knex, imgCnt, id) {
