@@ -19,7 +19,7 @@ var productImages = function(imgCnt, id) {
   ];
 
   //Specific data for product #1 that is coordinated between projects
-  var prodOneList = 
+  var prodOneList =
     'https://fec-product-images.s3.us-east-2.amazonaws.com/s-l64_chew1.jpg,https://fec-product-images.s3.us-east-2.amazonaws.com/s-l500_chew1.jpg,https://fec-product-images.s3.us-east-2.amazonaws.com/s-l1600_chew1.jpg,1,\nhttps://fec-product-images.s3.us-east-2.amazonaws.com/s-l64_chew2.jpg,https://fec-product-images.s3.us-east-2.amazonaws.com/s-l500_chew2.jpg,https://fec-product-images.s3.us-east-2.amazonaws.com/s-l1600_chew2.jpg,1,'
   ;
   var result = "";
@@ -38,12 +38,12 @@ const seedImg = () => {
   let writeStream = fs.createWriteStream('img.csv');
   var imgCnt;
   var csvStr = 'img_small,img_large,img_zoom,product_id,\n';
-  for (var i = 1; i <= 1000000; i++) {
+  for (var i = 1; i <= 100; i++) {
     //Select random amount of images for product
     imgCnt = Math.floor(Math.random() * 8) + 1;
     csvStr += productImages(imgCnt, i);
 
-    if(i % 5000 === 0) {
+    if(i % 10 === 0) {
       writeStream.write(csvStr)
       csvStr = '';
     }
@@ -56,6 +56,6 @@ const seedImg = () => {
 
 seedImg()
 
-    
 
-    
+
+

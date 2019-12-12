@@ -8,7 +8,7 @@
     "node": ">=6.13.0"
   },
   "scripts": {
-    "csv": "node db/seeds/b_img_gen.js",
+    "csv": "node db/seeds/a_prod_gen.js",
     "start": "node server/index.js",
     "startDev": "nodemon server/index.js",
     "build": "webpack --config webpack.prod.js",
@@ -27,6 +27,7 @@
     "express": "^4.17.1",
     "faker": "^4.1.0",
     "knex": "^0.19.5",
+    "knex-csv-seeder": "^0.4.1",
     "mysql": "^2.17.1",
     "prop-types": "^15.7.2",
     "query-string": "^6.8.3",

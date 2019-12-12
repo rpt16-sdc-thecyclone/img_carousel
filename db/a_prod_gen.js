@@ -6,13 +6,13 @@ const fsPromises = require('fs').promises;
 const prodDataGen = () => {
   let writeStream = fs.createWriteStream('product.csv')
   var fakeProducts = "name,\n";
-  for (var i = 1; i <= 1000000; i++) {
+  for (var i = 1; i <= 100; i++) {
     if (i === 0) {
       fakeProducts +='Star Wars Super Deluxe 24" Talking Plush: Chewbacca,\n';
     } else {
       fakeProducts += faker.random.words(3) + ',\n';
     }
-    if ( i % 2500 === 0) {
+    if ( i % 10 === 0) {
       writeStream.write(fakeProducts)
       fakeProducts = "";
     }
