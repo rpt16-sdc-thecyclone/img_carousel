@@ -1,40 +1,42 @@
 // Update with your config settings.
+const connectionString = 'postgressql://postgres@localhost:5432/'
 
 module.exports = {
 
   development: {
-    client: 'mysql',
-    connection: {
-      database: 'gallery',
-      user: 'root',
-      password: '',
-    },
-    pool: {
-      min: 2,
-      max: 10,
-    },
+    client: 'pg',
+    connection: connectionString,
     migrations: {
-      tableName: 'knex_migrations',
+      directory: './migrations',
     },
+    seeds: {
+      directory: './seeds'
+    },
+    useNullAsDefault: true
+  },
+
+  test: {
+    client: 'pg',
+    connection: connectionString,
+    migrations: {
+      directory: './migrations'
+    },
+    seeds: {
+      directory: './seeds'
+    },
+    useNullAsDefault: true
   },
 
   production: {
-    client: 'mysql',
-    connection: {
-      // host: process.env.MYSQL_HOST || '127.0.0.1',
-      host: process.env.MYSQL_HOST,
-      // port: 3306,
-      database: 'gallery',
-      user: 'fec_gallery',
-      password: '123',
-    },
-    pool: {
-      min: 2,
-      max: 10,
-    },
+    client: 'pg',
+    connection: process.env.DataBase_URL,
     migrations: {
-      tableName: 'knex_migrations',
+      directory: './migrations',
     },
+    seeds: {
+      directory: './seeds'
+    },
+    useNullAsDefault: true
   },
 
 };
