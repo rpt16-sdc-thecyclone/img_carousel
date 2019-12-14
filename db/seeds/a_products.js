@@ -7,16 +7,7 @@ exports.seed = function(knex) {
       return knex.raw(`ALTER SEQUENCE products_id_seq RESTART WITH 1`);
     })
     .then(function () {
-      //Create array of fake products
-      var fakeProducts = [];
-      for (var i = 0; i < 100; i++) {
-        if (i === 0) {
-          fakeProducts.push({name: 'Star Wars Super Deluxe 24" Talking Plush: Chewbacca'});
-        } else {
-          fakeProducts.push({name: faker.random.words(3)});
-        }
-      }
-      // Inserts seed entries
-      return knex('products').insert(fakeProducts);
+      //Insert previously generated data from product.csv file
+      return knex.raw(`COPY products(name) FROM '/Users/troymclaughlin/Desktop/img_carousel/product.csv' DELIMITER ',' CSV HEADER`);
     });
 };
