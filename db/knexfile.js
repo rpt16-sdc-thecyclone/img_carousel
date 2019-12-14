@@ -1,5 +1,5 @@
 // Update with your config settings.
-const connectionString = 'postgressql://postgres@localhost:5432/'
+const connectionString = 'postgressql://postgres@localhost:5432/gallery'
 
 module.exports = {
 

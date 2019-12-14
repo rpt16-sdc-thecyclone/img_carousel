@@ -33,13 +33,16 @@ var productImages = function(knex, imgCnt, id) {
       result[i]['product_id'] = id;
     }
   }
-  
+  // console.log(result);
   return knex('images').insert(result);
 };
 
 exports.seed = function(knex) {
   // Deletes ALL existing entries
   return knex('images').del()
+    .then(function () {
+      return knex.raw(`ALTER SEQUENCE images_id_seq RESTART WITH 1`);
+    })
     .then(function () {
 
       // Inserts seed entries
