@@ -10,19 +10,19 @@ const csvWriter = createCsvWriter({
 
 let generateProdData = () => {
   var fakeProducts = [];
-  for (var i = 0; i <= 1000; i++) {
+  for (var i = 0; i <= 100000; i++) {
     if (i === 0) {
       fakeProducts.push({name: 'Star Wars Super Deluxe 24" Talking Plush: Chewbacca'});
     } else {
       fakeProducts.push({name: faker.random.words(3)});
     }
-    if(i % 100 === 0) {
+    if(i % 2500 === 0) {
       csvWriter.writeRecords(fakeProducts)
-        .then(() => {
-          console.log('...Done')
-        })
+      .catch((err) => console.log(err))
+      fakeProducts = []
     }
   }
+  console.log('product data generated')
 
 }
 

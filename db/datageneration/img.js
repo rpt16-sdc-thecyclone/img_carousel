@@ -48,22 +48,22 @@ var productImages = function(imgCnt, id) {
   return result
 };
 
-const generateData = () => {
+const generateImgData = () => {
   var imgCnt;
   var insertArr = [];
-  for (var i = 1; i <= 10000; i++) {
+  for (var i = 1; i <= 100000; i++) {
     //Select random amount of images for product
     imgCnt = Math.floor(Math.random() * 8) + 1;
     let oneProdRecords = productImages(imgCnt, i);
     oneProdRecords.forEach(record => {
       insertArr.push(record)
     })
-    if(i % 1000 === 0) {
+    if(i % 2500 === 0) {
       csvWriter.writeRecords(insertArr)
-        .then(() => {
-          console.log('img data written')
-        })
+        .catch((err) => console.log(err))
+      insertArr = []
     }
   }
+  console.log('img data generated')
 };
-generateData()
+generateImgData()
