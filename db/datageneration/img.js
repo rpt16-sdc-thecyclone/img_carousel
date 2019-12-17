@@ -37,7 +37,7 @@ const generateImgData = () => {
   let writeStream = fs.createWriteStream('img.csv');
   var imgCnt;
   var csvStr = 'img_small,img_large,img_zoom,product_id\n';
-  for (var i = 1; i <= 10000; i++) {
+  for (var i = 1; i <= 50000; i++) {
     //Select random amount of images for product
     imgCnt = Math.floor(Math.random() * 8) + 1;
     csvStr += productImages(imgCnt, i);
