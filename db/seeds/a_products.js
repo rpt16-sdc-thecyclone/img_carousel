@@ -1,3 +1,4 @@
+// const fs = require('fs');
 
 // exports.seed = function(knex, Promise) {
 //   return knex('products').del()
@@ -5,15 +6,16 @@
 //     return knex.raw(`ALTER SEQUENCE products_id_seq RESTART WITH 1`);
 //   })
 //   //curr error id argument id must be type string, getting undefined
-//   .then(()=> {
-//     var stream = client.query(copyFrom(`COPY products FROM STDIN`));
-//     var fileStream = fs.createReadStream('../../product.csv')
-//     fileStream.on('error', done);
-//     stream.on('error', done);
-//     stream.on('end', done);
-//     fileStream.pipe(stream)
-//   })
-//   .catch((err) => console.log(err))
+//   .then( async () => {
+//     //Stream CSV file and write to database
+//     let readStream = fs.createReadStream('../img.csv', 'utf-8');
+
+//     readStream.on('data', function(chunk) {
+//       knex('images').insert(chunk);
+//     }).on('end', function() {
+//       console.log('image data written to database')
+//     })
+//   });
 // }
 
 exports.seed = function(knex) {
