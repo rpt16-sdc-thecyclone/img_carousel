@@ -7,6 +7,10 @@ const client = new Client({
   password: null,
   port: 5432,
 })
+
+var startTime = new Date();
+var start = `started at ${startTime.getHours()}:${startTime.getMinutes()} and ${startTime.getSeconds()}.${startTime.getMilliseconds()} seconds`
+
 client.connect()
 //clear all existing data from both tables
 client.query('TRUNCATE TABLE products CASCADE', (err, res) => {
@@ -37,7 +41,9 @@ client.query(`COPY images(img_small,img_large,img_zoom,product_id) FROM '/Users/
   if (err) {
     console.log(err)
   }
-  console.log('img.csv copied', res)
+  let endTime = new Date()
+  var end = `started at ${endTime.getHours()}:${endTime.getMinutes()} and ${endTime.getSeconds()}.${endTime.getMilliseconds()} seconds`
+  console.log(`started at ${start}, finished at ${end}`, res)
 
   client.end()
 })
