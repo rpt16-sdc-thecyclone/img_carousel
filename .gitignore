@@ -1,7 +1,8 @@
 public/app.js
 img.csv
 product.csv
-
+cassandra.csv
+import_carousel_images.err
 #Sample file of ebay html
 eBay_sample.html
 
