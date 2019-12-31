@@ -14,4 +14,11 @@ describe('Testing server API', () => {
     expect(res.body).toHaveProperty('name');
     expect(res.body.name).toEqual('Star Wars Super Deluxe 24" Talking Plush: Chewbacca');
   });
+  it('API responds with correct product name to GET request from table with millions of rows', async () => {
+    const res = await request(server).get('/images?id=9750000');
+    expect(res.statusCode).toEqual(200);
+    expect(res.body).toHaveProperty('name');
+    expect(res.body).toHaveProperty('images');
+    expect(res.body.name).toEqual('Super Watch Test');
+  })
 });
