@@ -4,17 +4,16 @@ const fs = require('fs');
 var productImages = function(imgCnt, id) {
   //Variable for set of S3 stored images
   var imageList = [
-    'https://fec-product-images.s3.us-east-2.amazonaws.com/s-l64.jpg,https://fec-product-images.s3.us-east-2.amazonaws.com/s-l500.jpg,https://fec-product-images.s3.us-east-2.amazonaws.com/s-l1600.jpg,',
-    'https://fec-product-images.s3.us-east-2.amazonaws.com/s-l64+(1).jpg,https://fec-product-images.s3.us-east-2.amazonaws.com/s-l500+(1).jpg,https://fec-product-images.s3.us-east-2.amazonaws.com/s-l1600+(1).jpg,',
-    'https://fec-product-images.s3.us-east-2.amazonaws.com/s-l64+(2).jpg,https://fec-product-images.s3.us-east-2.amazonaws.com/s-l500+(2).jpg,https://fec-product-images.s3.us-east-2.amazonaws.com/s-l1600+(2).jpg,',
-    'https://fec-product-images.s3.us-east-2.amazonaws.com/s-l64+(3).jpg,https://fec-product-images.s3.us-east-2.amazonaws.com/s-l500+(3).jpg,https://fec-product-images.s3.us-east-2.amazonaws.com/s-l1600+(3).jpg,',
-    'https://fec-product-images.s3.us-east-2.amazonaws.com/s-l64+(4).jpg,https://fec-product-images.s3.us-east-2.amazonaws.com/s-l500+(4).jpg,https://fec-product-images.s3.us-east-2.amazonaws.com/s-l1600+(4).jpg,',
-    'https://fec-product-images.s3.us-east-2.amazonaws.com/s-l64+(5).jpg,https://fec-product-images.s3.us-east-2.amazonaws.com/s-l500+(5).jpg,https://fec-product-images.s3.us-east-2.amazonaws.com/s-l1600+(5).jpg,',
-    'https://fec-product-images.s3.us-east-2.amazonaws.com/s-l64+(6).jpg,https://fec-product-images.s3.us-east-2.amazonaws.com/s-l500+(6).jpg,https://fec-product-images.s3.us-east-2.amazonaws.com/s-l1600+(6).jpg,',
-    'https://fec-product-images.s3.us-east-2.amazonaws.com/s-l64+(7).jpg,https://fec-product-images.s3.us-east-2.amazonaws.com/s-l300+(1).jpg,https://fec-product-images.s3.us-east-2.amazonaws.com/s-l1600+(7).jpg,',
+    'https://sdc-the-cyclone.s3-us-west-2.amazonaws.com/SDC+S3+img/watch1sml.jpg,https://sdc-the-cyclone.s3-us-west-2.amazonaws.com/SDC+S3+img/watch1lg.jpg,https://sdc-the-cyclone.s3-us-west-2.amazonaws.com/SDC+S3+img/watch1zoom.jpg,',
+    'https://sdc-the-cyclone.s3-us-west-2.amazonaws.com/SDC+S3+img/watch2sml.jpg,https://sdc-the-cyclone.s3-us-west-2.amazonaws.com/SDC+S3+img/watch2lg.jpg,https://sdc-the-cyclone.s3-us-west-2.amazonaws.com/SDC+S3+img/watch2zoom.jpg,',
+    'https://sdc-the-cyclone.s3-us-west-2.amazonaws.com/SDC+S3+img/watch3sml.jpg,https://sdc-the-cyclone.s3-us-west-2.amazonaws.com/SDC+S3+img/watch3lg.jpg,https://sdc-the-cyclone.s3-us-west-2.amazonaws.com/SDC+S3+img/watch3zoom.jpg,',
+    'https://sdc-the-cyclone.s3-us-west-2.amazonaws.com/SDC+S3+img/watch4sml.jpg,https://sdc-the-cyclone.s3-us-west-2.amazonaws.com/SDC+S3+img/watch4lg.jpg,https://sdc-the-cyclone.s3-us-west-2.amazonaws.com/SDC+S3+img/watch4zoom.jpg,',
+    'https://sdc-the-cyclone.s3-us-west-2.amazonaws.com/SDC+S3+img/watch5sml.jpg,https://sdc-the-cyclone.s3-us-west-2.amazonaws.com/SDC+S3+img/watch5lg.jpg,https://sdc-the-cyclone.s3-us-west-2.amazonaws.com/SDC+S3+img/watch5zoom.jpg,',
+    'https://sdc-the-cyclone.s3-us-west-2.amazonaws.com/SDC+S3+img/watch6sml.jpg,https://sdc-the-cyclone.s3-us-west-2.amazonaws.com/SDC+S3+img/watch6lg.jpg,https://sdc-the-cyclone.s3-us-west-2.amazonaws.com/SDC+S3+img/watch6zoom.jpg,',
+    'https://sdc-the-cyclone.s3-us-west-2.amazonaws.com/SDC+S3+img/watch7sml.jpg,https://sdc-the-cyclone.s3-us-west-2.amazonaws.com/SDC+S3+img/watch7lg.jpg,https://sdc-the-cyclone.s3-us-west-2.amazonaws.com/SDC+S3+img/watch7zoom.jpg,',
+    'https://sdc-the-cyclone.s3-us-west-2.amazonaws.com/SDC+S3+img/watch8sml.jpg,https://sdc-the-cyclone.s3-us-west-2.amazonaws.com/SDC+S3+img/watch8lg.jpg,https://sdc-the-cyclone.s3-us-west-2.amazonaws.com/SDC+S3+img/watch8zoom.jpg,',
     'https://fec-product-images.s3.us-east-2.amazonaws.com/s-l64+(8).jpg,https://fec-product-images.s3.us-east-2.amazonaws.com/s-l500+(2).jpg,https://fec-product-images.s3.us-east-2.amazonaws.com/s-l1600+(8).jpg,',
-    'https://fec-product-images.s3.us-east-2.amazonaws.com/s-l64+(9).jpg,https://fec-product-images.s3.us-east-2.amazonaws.com/s-l500+(3).jpg,https://fec-product-images.s3.us-east-2.amazonaws.com/s-l1600+(9).jpg,',
-    'https://fec-product-images.s3.us-east-2.amazonaws.com/s-l64+(10).jp,https://fec-product-images.s3.us-east-2.amazonaws.com/s-l500+(4).jpg,https://fec-product-images.s3.us-east-2.amazonaws.com/s-l1600+(10).jpg,',
+    'https://sdc-the-cyclone.s3-us-west-2.amazonaws.com/SDC+S3+img/watch9sml.jpg,https://sdc-the-cyclone.s3-us-west-2.amazonaws.com/SDC+S3+img/watch9lg.jpg,https://sdc-the-cyclone.s3-us-west-2.amazonaws.com/SDC+S3+img/watch9zoom.jpg,',
   ];
 
   //Specific data for product #1 that is coordinated between projects
@@ -39,7 +38,7 @@ const generateImgData = () => {
   var csvStr = 'img_small,img_large,img_zoom,product_id\n';
   for (var i = 1; i <= 10000000; i++) {
     //Select random amount of images for product
-    imgCnt = Math.floor(Math.random() * 8) + 1;
+    imgCnt = Math.floor(Math.random() * 7) + 1;
     csvStr += productImages(imgCnt, i);
 
     if(i % 5000 === 0) {
