@@ -3,6 +3,9 @@ img.csv
 product.csv
 cassandra.csv
 import_carousel_images.err
+jmeter.log
+newrelic_agent.log
+Thread Group.jmx
 
 #Sample file of ebay html
 eBay_sample.html
