@@ -19,6 +19,6 @@ describe('Testing server API', () => {
     expect(res.statusCode).toEqual(200);
     expect(res.body).toHaveProperty('name');
     expect(res.body).toHaveProperty('images');
-    expect(res.body.name).toEqual('Super Watch Test');
+    expect(res.body.name).toEqual('Gorgeous Frozen Pizza');
   })
 });
