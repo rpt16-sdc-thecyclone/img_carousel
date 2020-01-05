@@ -1,6 +1,7 @@
 const environment = process.env.ENVIRONMENT || 'development';
 const config = require('./knexfile')[environment];
 const knex = require('knex')(config);
+const faker = require('faker');
 
 const getProductImages = function (id, callback) {
   const queries = [];
@@ -18,15 +19,18 @@ const getProductImages = function (id, callback) {
 };
 
 const addItem = function(callback) {
+  let prod = faker.lorem.words(3)
   knex('products')
-  .insert({name: 'New Item added!!!!'})
+  .insert({name: prod})
+  .then(()=> knex('products').where('name', prod))
   .then(res => {
+    console.log('results of adding products table',res[0].id)
     knex('images')
     .insert([{
-      img_small: 'https://fec-product-images.s3.us-east-2.amazonaws.com/s-l64.jpg',
-      img_large: 'https://fec-product-images.s3.us-east-2.amazonaws.com/s-l500.jpg',
-      img_zoom: 'https://fec-product-images.s3.us-east-2.amazonaws.com/s-l1600.jpg',
-      product_id: res,
+      img_small: 'https://sdc-the-cyclone.s3-us-west-2.amazonaws.com/SDC+S3+img/watch9sml.jpg',
+      img_large: 'https://sdc-the-cyclone.s3-us-west-2.amazonaws.com/SDC+S3+img/watch9lg.jpg',
+      img_zoom: 'https://sdc-the-cyclone.s3-us-west-2.amazonaws.com/SDC+S3+img/watch9zoom.jpg',
+      product_id: res[0].id,
     }])
     .then(result => {
       if (result) {

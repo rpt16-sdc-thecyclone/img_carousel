@@ -8,7 +8,7 @@ const generateProdData = () => {
   for (var i = 1; i <= 10000000; i++) {
     if (i === 0) {
       fakeProducts +='Star Wars Super Deluxe 24" Talking Plush: Chewbacca\n';
-    } else if (i === 9,750,000){
+    } else if (i === 9750000){
       fakeProducts += 'Super Watch Test\n';
     } else {
       fakeProducts += faker.commerce.productName(3) + '\n';

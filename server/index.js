@@ -1,3 +1,4 @@
+require('newrelic');
 const express = require('express');
 
 const path = require('path');
@@ -28,7 +29,7 @@ app.get('/images', (req, res) => {
       }
     ));
     data.images = imgArray;
-    console.log(data);
+    console.log('get request fulfilled');
     res.status(200).send(data);
   });
 });
