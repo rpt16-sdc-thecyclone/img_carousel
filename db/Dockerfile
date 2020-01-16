@@ -1,9 +1,7 @@
-FROM mysql:5.7.28
+FROM postgres:latest
 
-ENV MYSQL_DATABASE gallery
-ENV MYSQL_USER fec_gallery
-ENV MYSQL_PASSWORD 123
+ENV POSTGRES_PASSWORD=password
+ENV POSTGRES_USER=gallery
+ENV POSTGRES_DB=gallery
 
-COPY schema.sql /docker-entrypoint-initdb.d/
-
-EXPOSE 3306
+EXPOSE 5432

@@ -1,5 +1,5 @@
 // Update with your config settings.
-const connectionString = 'postgressql://postgres@localhost:5432/gallery'
+const connectionString = 'postgressql://gallery:password@localhost:5432/gallery'
 
 module.exports = {
 
@@ -29,7 +29,7 @@ module.exports = {
 
   production: {
     client: 'pg',
-    connection: process.env.DataBase_URL,
+    connection: connectionString,
     migrations: {
       directory: './migrations',
     },
