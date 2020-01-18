@@ -1,28 +1,35 @@
 version: '3'
 services:
-    db:
-        build: ./db
-        container_name: 'my_postgres'
-        build: ./db
-        # volumes:
-        #     - my_dbdata:/var/lib/postgresql/data
-        # command: --max_connections=400
-        ports:
-            - "5432:5432"
-        healthcheck:
-            test: "exit 0"
+    # db:
+    #     build: ./db
+    #     container_name: 'postgresdb'
+    #     build: ./db
+    #     # volumes:
+    #     #     - my_dbdata:/var/lib/postgresql/data
+    #     # command: --max_connections=400
+    #     ports:
+    #         - "5432:5432"
+    #     healthcheck:
+    #         test: "exit 0"
 
-    ebay_gallery:
-        build: .
-        depends_on:
-            - db
-            # db:
-            #     condition: service_healthy
-        command: sh -c './wait-for-it db:3306 -t 30 -- npm run seedDocker; npm start'
-        links:
-            - db:db
-        # environment:
-        #     - MYSQL_HOST=db
-        #     - ENVIRONMENT=production
+    # ebay_gallery:
+    #     build: .
+    #     depends_on:
+    #         - db
+    #         # db:
+    #         #     condition: service_healthy
+    #     command: sh -c './wait-for-it db:3306 -t 30 -- npm run seedDocker; npm start'
+    #     links:
+    #         - db:db
+    #     # environment:
+    #     #     - MYSQL_HOST=db
+    #     #     - ENVIRONMENT=production
+    #     ports:
+    #         - "3003:3003"
+    db:
+        container_name: 'psql'
+        image: postgres:latest
         ports:
-            - "3003:3003"
+            - 5432:5432
+        environment:
+            POSTGRES_DB: gallery

@@ -2,10 +2,10 @@ const { Pool, Client } = require('pg');
 
 const client = new Client({
   user: 'gallery',
-  host: 'localhost',
+  host: 'ec2-54-244-137-205.us-west-2.compute.amazonaws.com',
   database: 'gallery',
-  password: 'password',
-  port: 5432,
+  password: null,
+  port: 80,
 })
 
 var startTime = new Date();
@@ -30,14 +30,15 @@ client.query(`ALTER SEQUENCE images_id_seq RESTART WITH 1`, (err,res) => {
   console.log('id count for images reset', res)
 })
 //copy data from product.csv to products table
-client.query(`COPY products(name) FROM '/Users/troymclaughlin/Desktop/img_carousel/product.csv' DELIMITER ',' CSV HEADER`, (err, res) => {
+let string = ''
+client.query(`copy products (name) FROM stdin DELIMITER ',' CSV HEADER`, (err, res) => {
   if (err) {
     console.log(err)
   }
   console.log('porducts.csv copied', res)
 })
 //copy data from img.csv to images table
-client.query(`COPY images(img_small,img_large,img_zoom,product_id) FROM '/Users/troymclaughlin/Desktop/img_carousel/img.csv' DELIMITER ',' CSV HEADER`, (err, res) => {
+client.query(`copy images (img_small,img_large,img_zoom,product_id) FROM '/Users/troymclaughlin/Desktop/img_carousel/img.csv' DELIMITER ',' CSV HEADER`, (err, res) => {
   if (err) {
     console.log(err)
   }
