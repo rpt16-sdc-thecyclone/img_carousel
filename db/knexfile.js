@@ -1,11 +1,12 @@
 // Update with your config settings.
-const connectionString = 'postgressql://ec2-54-244-137-205.us-west-2.compute.amazonaws.com/gallery'
+const connectionString = 'postgressql://localhost/gallery'
 // 'postgressql://ec2-54-244-137-205.us-west-2.compute.amazonaws.com:80/gallery'
 
 module.exports = {
 
   development: {
     client: 'pg',
+    // connection: connectionString,
     connection: {
       host:'ec2-54-245-189-102.us-west-2.compute.amazonaws.com',
       user: 'gallery',

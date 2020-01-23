@@ -6,6 +6,7 @@ import_carousel_images.err
 jmeter.log
 newrelic_agent.log
 Thread Group.jmx
+test/POST-test.jmx
 
 #Sample file of ebay html
 eBay_sample.html

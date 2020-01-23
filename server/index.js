@@ -40,7 +40,7 @@ app.post('/images', (req, res) => {
     if (err) {
       console.log('Error while adding item', err);
     } else {
-      res.send(result)
+      res.status(200).send(result)
     }
   })
 });
