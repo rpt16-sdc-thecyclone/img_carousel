@@ -7,7 +7,7 @@ module.exports = {
   development: {
     client: 'pg',
     connection: {
-      host:'ec2-54-244-137-205.us-west-2.compute.amazonaws.com',
+      host:'ec2-54-245-189-102.us-west-2.compute.amazonaws.com',
       user: 'gallery',
       password: null,
       database: 'gallery',

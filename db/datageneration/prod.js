@@ -5,7 +5,7 @@ const fs = require('fs');
 const generateProdData = () => {
   let writeStream = fs.createWriteStream('product.csv')
   var fakeProducts = "name\n";
-  for (var i = 1; i <= 100; i++) {
+  for (var i = 1; i <= 10000000; i++) {
     if (i === 0) {
       fakeProducts +='Star Wars Super Deluxe 24" Talking Plush: Chewbacca\n';
     } else if (i === 9750000){
@@ -13,7 +13,7 @@ const generateProdData = () => {
     } else {
       fakeProducts += faker.commerce.productName(3) + '\n';
     }
-    if ( i % 50=== 0) {
+    if ( i % 5000=== 0) {
       writeStream.write(fakeProducts)
       fakeProducts = "";
     }
