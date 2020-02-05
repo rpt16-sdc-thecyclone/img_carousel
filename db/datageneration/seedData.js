@@ -4,7 +4,7 @@ const knex = require('knex');
 
 const client = new Client({
   user: 'gallery',
-  host: 'ec2-54-245-189-102.us-west-2.compute.amazonaws.com',
+  host: 'ec2-52-39-130-65.us-west-2.compute.amazonaws.com',
   database: 'gallery',
   password: null,
   port: 80,

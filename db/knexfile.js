@@ -8,11 +8,11 @@ module.exports = {
     client: 'pg',
     // connection: connectionString,
     connection: {
-      host:'ec2-54-245-189-102.us-west-2.compute.amazonaws.com',
+      host:'DBLoadBalancer-790092547.us-west-2.elb.amazonaws.com',
       user: 'gallery',
-      password: null,
+      password: 'password',
       database: 'gallery',
-      port: 80,
+      port: 5432,
     },
     migrations: {
       directory: './migrations',
