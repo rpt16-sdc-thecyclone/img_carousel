@@ -1,4 +1,5 @@
 const fs = require('fs');
+// const { resolve } = require('path');
 
 
 var productImages = function(imgCnt, id) {
@@ -32,24 +33,28 @@ var productImages = function(imgCnt, id) {
   return result
 };
 
-const generateImgData = () => {
-  let writeStream = fs.createWriteStream('img.csv');
-  var imgCnt;
-  var csvStr = 'img_small,img_large,img_zoom,product_id\n';
-  for (var i = 1; i <= 10000000; i++) {
-    //Select random amount of images for product
-    imgCnt = Math.floor(Math.random() * 7) + 1;
-    csvStr += productImages(imgCnt, i);
 
-    if(i % 5000 === 0) {
-      writeStream.write(csvStr)
-      csvStr = '';
+const generateImgData =  async () => {
+  console.log('start of data generation', new Date())
+  const file = fs.createWriteStream('img.csv');
+  let csvString = 'img_small,img_large,img_zoom,product_id\n';
+
+  for (let i = 1; i < 10000001; i++) {
+    imgCount = Math.floor(Math.random() * 9) + 1;
+    csvString += productImages(imgCount, i);
+
+    if(!file.write(csvString)) {
+      await new Promise(resolve => file.once('drain', resolve))
     }
-  }
-  writeStream.on('finish', () => {
-    console.log('wrote all data to file')
-  })
-  console.log('img data finished')
+    csvString = ''
 
+  }
+  file.on('finish', () => {
+    console.log('is this running', new Date())
+  })
+
+  console.log('end of function time', new Date())
 }
 generateImgData()
+
+// New total to gen 10 million product names 20.56.46.027 to 20.58.07.180 or 2 min 38 seconds and 847 miliseconds
