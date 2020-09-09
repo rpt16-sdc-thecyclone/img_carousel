@@ -1,2 +1,9 @@
 node_modules
 eBay_sample.html
+cassandra.csv
+product.csv
+img.csv
+import_carousel_images.err
+jmeter.log
+newrelic_agent.log
+test/POST-test.jmx

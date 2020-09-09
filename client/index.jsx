@@ -10,4 +10,4 @@ const Gallery = (
   </Router>
 );
 
-ReactDOM.render(Gallery, document.getElementById('Gallery'));
+ReactDOM.hydrate(Gallery, document.getElementById('Gallery'));

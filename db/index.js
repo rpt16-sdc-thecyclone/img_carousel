@@ -1,87 +1,52 @@
 const environment = process.env.ENVIRONMENT || 'development';
 const config = require('./knexfile')[environment];
 const knex = require('knex')(config);
+const faker = require('faker');
 
-const getProductImages = function (id, callback) {
+exports.getProductImages = async (id) =>  {
   const queries = [];
 
-  queries.push(knex('products').where('id', id));
-  queries.push(knex('images').where('product_id', id));
+  let product = await knex('products').where('id', id);
+  let images =  await knex('images').where('product_id', id);
 
-  Promise.all(queries)
-    .then((results) => {
-      callback(null, results);
-    })
-    .catch((err) => {
-      callback(err);
-    });
+  queries.push(product);
+  queries.push(images);
+
+  return queries;
 };
 
-const addItem = function(callback) {
-  knex('products')
-  .insert({name: 'New Item added!!!!'})
-  .then(res => {
-    knex('images')
-    .insert([{
-      img_small: 'https://fec-product-images.s3.us-east-2.amazonaws.com/s-l64.jpg',
-      img_large: 'https://fec-product-images.s3.us-east-2.amazonaws.com/s-l500.jpg',
-      img_zoom: 'https://fec-product-images.s3.us-east-2.amazonaws.com/s-l1600.jpg',
-      product_id: res,
-    }])
-    .then(result => {
-      if (result) {
-        callback(null, result)
-      } else {
-        callback('error updating')
-      }
-    })
-  })
-  .catch(err=> {
-    console.log(err)
-    callback(err)
-  })
+exports.addItem = async () => {
+  let prod = faker.lorem.words(3)
+
+  let productId = await knex('products').returning('id').insert({name: prod})[0];
+
+  let addImages = await knex('images').insert([{
+    img_small: 'https://sdc-the-cyclone.s3-us-west-2.amazonaws.com/SDC+S3+img/watch9sml.jpg',
+    img_large: 'https://sdc-the-cyclone.s3-us-west-2.amazonaws.com/SDC+S3+img/watch9lg.jpg',
+    img_zoom: 'https://sdc-the-cyclone.s3-us-west-2.amazonaws.com/SDC+S3+img/watch9zoom.jpg',
+    product_id: productId,
+  }]);
+
+  return addImages
 };
 
-const editItem = function (id, callback) {
-  knex('products')
-  .where({id: id})
-  .update({name: 'This item was updated'})
-  .then(res => {
-    if (res > 0) {
-      callback(null, 200)
-    } else {
-      callback(null, 'No file to update')
-    }
-  })
-  .catch(err => {
-    console.log(err);
-    callback(err)
-  })
+exports.editItem = async (id) => {
+  let results = await knex('products')
+    .where({id: id})
+    .update({name: 'This item was updated'})
+
+  return results
 };
 
-const deleteItem = function (id, callback) {
-  console.log('delete path hit')
-  knex('images')
-  .where('product_id', id)
-  .del()
-  .then(res => {
-    if (res > 0) {
-      callback(null, 200)
-    } else {
-      console.log('No files to delete')
-      callback(null, 'No files to delete for product')
-    }
-  })
-  .catch(err => {
-    console.log('inside del catch', err)
-    callback(err)
-  })
+exports.deleteItem = async (id, callback) => {
+  let results = await knex('images')
+    .where('product_id', id)
+    .del()
+
+  if (results > 0) {
+    return 200
+  }
+  return 'No files to delete for product'
 
 }
 
-module.exports = {
-  getProductImages,
-  deleteItem,
-  addItem,
-  editItem,
-};
