@@ -6,14 +6,7 @@ module.exports = {
 
   development: {
     client: 'pg',
-    // connection: connectionString,
-    connection: {
-      host:'DBLoadBalancer-790092547.us-west-2.elb.amazonaws.com',
-      user: 'gallery',
-      password: 'password',
-      database: 'gallery',
-      port: 5432,
-    },
+    connection: connectionString,
     migrations: {
       directory: './migrations',
     },
@@ -37,7 +30,13 @@ module.exports = {
 
   production: {
     client: 'pg',
-    connection: connectionString,
+    connection: {
+      host:'DBLoadBalancer-790092547.us-west-2.elb.amazonaws.com',
+      user: 'gallery',
+      password: 'password',
+      database: 'gallery',
+      port: 5432,
+    },
     migrations: {
       directory: './migrations',
     },
@@ -45,6 +44,5 @@ module.exports = {
       directory: './seeds'
     },
     useNullAsDefault: true
-  },
-
+  }
 };
