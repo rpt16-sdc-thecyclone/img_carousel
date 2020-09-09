@@ -1,7 +1,7 @@
 const fs = require('fs');
 // const { resolve } = require('path');
 
-
+let rowId = 3;
 var productImages = function(imgCnt, id) {
   //Variable for set of S3 stored images
   var imageList = [
@@ -19,15 +19,20 @@ var productImages = function(imgCnt, id) {
 
   //Specific data for product #1 that is coordinated between projects
   var prodOneList =
-    'https://fec-product-images.s3.us-east-2.amazonaws.com/s-l64_chew1.jpg,https://fec-product-images.s3.us-east-2.amazonaws.com/s-l500_chew1.jpg,https://fec-product-images.s3.us-east-2.amazonaws.com/s-l1600_chew1.jpg,1\nhttps://fec-product-images.s3.us-east-2.amazonaws.com/s-l64_chew2.jpg,https://fec-product-images.s3.us-east-2.amazonaws.com/s-l500_chew2.jpg,https://fec-product-images.s3.us-east-2.amazonaws.com/s-l1600_chew2.jpg,1'
+    '1,https://fec-product-images.s3.us-east-2.amazonaws.com/s-l64_chew1.jpg,https://fec-product-images.s3.us-east-2.amazonaws.com/s-l500_chew1.jpg,https://fec-product-images.s3.us-east-2.amazonaws.com/s-l1600_chew1.jpg,1\n2,https://fec-product-images.s3.us-east-2.amazonaws.com/s-l64_chew2.jpg,https://fec-product-images.s3.us-east-2.amazonaws.com/s-l500_chew2.jpg,https://fec-product-images.s3.us-east-2.amazonaws.com/s-l1600_chew2.jpg,1'
   ;
   var result = "";
   if (id === 1) {
     result += prodOneList + '\n';
   } else {
-    let images = imageList.slice(0, imgCnt);
+    // let images = imageList.slice(0, imgCnt);
+    // for (var i = 0; i < imgCnt; i++) {
+    //   result += rowId + ',' + images[i] + id + '\n';
+    //   rowId++;
+    // }
     for (var i = 0; i < imgCnt; i++) {
-      result += images[i] + id + '\n';
+      result += rowId + ',' + imageList[i] + id + '\n';
+      rowId++;
     }
   }
   return result
@@ -37,7 +42,7 @@ var productImages = function(imgCnt, id) {
 const generateImgData =  async () => {
   console.log('start of data generation', new Date())
   const file = fs.createWriteStream('img.csv');
-  let csvString = 'img_small,img_large,img_zoom,product_id\n';
+  let csvString = 'id,img_small,img_large,img_zoom,product_id\n';
 
   for (let i = 1; i < 10000001; i++) {
     imgCount = Math.floor(Math.random() * 9) + 1;
@@ -57,4 +62,4 @@ const generateImgData =  async () => {
 }
 generateImgData()
 
-// New total to gen 10 million product names 20.56.46.027 to 20.58.07.180 or 2 min 38 seconds and 847 miliseconds
+// New total to gen 10 million product names 20.56.46.027 to 20.58.07.180 or 2 min 38 seconds 
