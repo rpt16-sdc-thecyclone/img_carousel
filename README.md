@@ -74,18 +74,18 @@ From within the root directory:
 ```sh
 npm install
 ```
-#Seed the Postgress Database:
+Seed the Postgress Database:
 ```
 npm run seedDB
 npm run dataProd
 npm run dataImg
 npm run seed
 ```
-#Build webpack bundle
+Build webpack bundle
 ```
 npm run build
 ```
-#Start the server
+Start the server
 ```
 npm start
 ```
