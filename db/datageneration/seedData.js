@@ -74,7 +74,8 @@ let runSeedScriptNPMPackage = async () => {
 const runSeedCopyCommand = async () => {
 
   var startTime = new Date();
-  var start = `started at ${startTime.getHours()}:${startTime.getMinutes()} and ${startTime.getSeconds()}.${startTime.getMilliseconds()} seconds`
+  console.log(startTime)
+  var start = `started at ${startTime.getHours()}:${startTime.getMinutes()}:${startTime.getSeconds()}.${startTime.getMilliseconds()} seconds`
 
   const pool = new Pool({
     host: 'localhost',
@@ -85,10 +86,10 @@ const runSeedCopyCommand = async () => {
 
   const poolClient = await pool.connect()
 
+  console.log('here')
 
   //clear all existing data from both tables
   await poolClient.query('TRUNCATE TABLE products CASCADE')
-
   //reset id count to 1 for tables
   await poolClient.query(`ALTER SEQUENCE products_id_seq RESTART WITH 1`)
   await poolClient.query(`ALTER SEQUENCE images_id_seq RESTART WITH 1`)

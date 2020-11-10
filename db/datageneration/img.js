@@ -25,11 +25,6 @@ var productImages = function(imgCnt, id) {
   if (id === 1) {
     result += prodOneList + '\n';
   } else {
-    // let images = imageList.slice(0, imgCnt);
-    // for (var i = 0; i < imgCnt; i++) {
-    //   result += rowId + ',' + images[i] + id + '\n';
-    //   rowId++;
-    // }
     for (var i = 0; i < imgCnt; i++) {
       result += rowId + ',' + imageList[i] + id + '\n';
       rowId++;
@@ -62,4 +57,4 @@ const generateImgData =  async () => {
 }
 generateImgData()
 
-// New total to gen 10 million product names 20.56.46.027 to 20.58.07.180 or 2 min 38 seconds 
+// New total to gen 10 million product names 20.56.46.027 to 20.58.07.180 or 2 min 38 seconds

@@ -35,4 +35,4 @@ const generateProdData = () => {
 generateProdData()
 
 
-// New total to gen 10 million product names 
+// New total to gen 10 million product names
