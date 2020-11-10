@@ -1,23 +1,24 @@
-const fs = require('fs');
-const knex = require('knex')(config);
-const copyFrom = require('pg-copy-streams');
+// const fs = require('fs');
+// const knex = require('knex')(config);
+// const copyFrom = require('pg-copy-streams');
 
 
-exports.seed = async (kleenx) => {
+exports.seed = async (knex) => {
 
-  console.log(knex.clinet)
+  var startTime = new Date();
+  var start = `started writing products at ${startTime.getHours()}:${startTime.getMinutes()}:${startTime.getSeconds()}.${startTime.getMilliseconds()} seconds`
 
-  // console.log('what is this', knex)
-  // knex.clinet.pool.acquire((err, clinet) => {
-  //   done = (err) => {
-  //     connection.clinet.pool.release(clinet)
-  //     if(err) console.log(err)
-  //     else console.log('success')
-  //   }
-  //   const stream = client.query(copyFrom('Copy products from STDIN'));
-  //   const fileStream = fs.createReadStream('products.csv');
-  //   fileStream.on('error', done)
-  //   fileStream.pipe(stream).on('finish', done).on('error', done)
-  // })
+  await knex('products').del();
 
+  await knex.raw(`ALTER SEQUENCE products_id_seq RESTART WITH 1`);
+  await knex.raw(`ALTER TABLE products DISABLE TRIGGER ALL`);
+
+  await knex.raw(`Copy products(id,name) FROM '/Users/troymclaughlin/Documents/projects/sdc/img-carousel-microservice/product.csv' DELIMITER ',' CSV HEADER`);
+
+  await knex.raw(`ALTER TABLE products ENABLE TRIGGER ALL`);
+
+  let endTime = new Date()
+  var end = `started at ${endTime.getHours()}:${endTime.getMinutes()}:${endTime.getSeconds()}.${endTime.getMilliseconds()} seconds`
+  console.log(`Products Table: started at ${start}, finished at ${end}`)
+  return
 };
