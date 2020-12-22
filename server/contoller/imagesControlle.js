@@ -3,6 +3,8 @@ const { getProductImages,
         editItem,
         deleteItem
 } = require('../../db/index');
+const { addToCache } = require('../../db/redisCache.js');
+
 
 exports.fetchProductImages = async (req, res) => {
   const { id } = req.query;
@@ -17,6 +19,7 @@ exports.fetchProductImages = async (req, res) => {
     }
   ));
   data.images = imgArray;
+  addToCache(id, data);
   console.log('get request fulfilled');
   res.status(200).send(data);
 
