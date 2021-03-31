@@ -20,17 +20,17 @@ Other Microsevice and Proxy Repos:
 
 I chose to refactor the service to use PostgreSQL, and remove callbacks in favor of async/await promises, for readability and performance reasons. Built a data generation script to generate the 1 to 1 data for product names, and many to 1 data for images. Total dummy data size is about 12.21 GB covering 60 million rows in 2 tables in PostgreSQL. Data generation writes all data to CSV files in about 2 min. Seeding script populates tables from CSV files. Current seeding times are 13 min.
 
-This required first optimizing the database with indexes to reduce query times. I next explored 3 optimizations for the system as described and diagramed below.
+This required first optimizing the database with indexes to reduce query times. Next, I explored 3 optimizations for the system as described and diagrammed below.
 
-I first horizontally scaled the node servers. Using AWS AIM images and Templates to automate adding new servers made it relatively quick to scale the servers to a point where new servers were not adding a benefit to response times. I hit this threshold between 3 and 4 servers.
+I first horizontally scaled the node servers using AWS AIM images and Templates.  Creating new servers this way made it relatively quick to find the point where new servers were not adding a benefit to response times. I hit this threshold between 3 and 4 servers.
 
 ![horizontallyscaled](./images/serverscaling.jpeg)
 
-The second optimization was to create a replica of my PostgreSQL database. This would not be helpful if the database was doing lots of reads and writes, which would have needed sharding and replication, but since this system was doing mostly reads it made sense to spread out those reads over multiple databases. This scaled system with everything running on EC2 micros was able to handle 2500 RPS looking in last 80% of the data set with an average response times of 75ms.
+The second optimization was to create a replica of my PostgreSQL database. I would not have chosen to do this if the database was doing lots of reads and writes, which would have needed sharding and replication. Since this system was doing mostly reads, it made sense to spread out those reads over multiple databases. This scaled system with everything running on EC2 micros was able to handle 2500 RPS looking in last 80% of the data set with an average response times of 75ms.
 
 ![scaleddatabases](./images/dbreplication.jpeg)
 
-The last optimization was adding shared caching to the system with Redis. This had benefits only for specific tests scenarios. When the targeted data range was large Redis didn’t provide much help, as it was rare for data to have been cached. When the data range was reduced and the cache was warmed up response times didn’t change drastically, but through put increased.
+The last optimization was adding shared caching to the system with Redis. This had benefits only for specific tests scenarios. When the targeted data range was large, Redis didn’t provide much help, as it was rare for data to have been cached. When the data range was reduced and the cache was warmed up, response times didn’t change drastically, but through-put increased.
 
 ![caching](./images/caching.jpeg)
 
@@ -73,7 +73,7 @@ An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
 * Issue with using Postgres COPY command in knex seed files
   > Addressed this issue in Sept 2020. Knex seeding was running slow, mostly due to the time it took to truncate a table with millions of rows and foreign key restraints. Adjusted how the old data was removed from the tables made seeding with Knex a viable option. However, Knex seeding still takes about 20% longer than running the same SQL commands with a postgres driver and no ORM.
 * Find a way to get seeding times under 10 min
-  > Addressed this issue in Sept 2020. Times were greatly reduced, but have not hit the 10 min mark yet. Refactroing reduced data creation time from around 10 min to 2 min 30 seconds. Seeding times were reduced from around 23 min to 13 min.
+  > Addressed this issue in Sept 2020. Times were greatly reduced, but have not hit the 10 min mark yet. Refactoring reduced data creation time from around 10 min to 2 min 30 seconds. Seeding times were reduced from around 23 min to 13 min.
 
 > Major things that I would like to come back and work on:
 * Finish server refactor for Cassandra: Remove knex and use Cassandra driver, refactor Models for new database
