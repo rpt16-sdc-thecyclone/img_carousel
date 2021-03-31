@@ -1,48 +1,40 @@
 // Update with your config settings.
-const connectionString = 'postgressql://localhost/gallery'
-// 'postgressql://ec2-54-244-137-205.us-west-2.compute.amazonaws.com:80/gallery'
 
 module.exports = {
 
   development: {
     client: 'pg',
-    connection: connectionString,
+    connection: {
+      database: 'gallery',
+      user: 'nameone',
+      password: 'password',
+    },
+    pool: {
+      min: 2,
+      max: 10,
+    },
     migrations: {
-      directory: './migrations',
+      tableName: 'knex_migrations',
     },
-    seeds: {
-      directory: './seeds'
-    },
-    useNullAsDefault: true
-  },
-
-  test: {
-    client: 'pg',
-    connection: connectionString,
-    migrations: {
-      directory: './migrations'
-    },
-    seeds: {
-      directory: './seeds'
-    },
-    useNullAsDefault: true
   },
 
   production: {
-    client: 'pg',
+    client: 'mysql',
     connection: {
-      host:'DBLoadBalancer-790092547.us-west-2.elb.amazonaws.com',
-      user: 'gallery',
-      password: 'password',
+      // host: process.env.MYSQL_HOST || '127.0.0.1',
+      host: process.env.MYSQL_HOST,
+      // port: 3306,
       database: 'gallery',
-      port: 5432,
+      user: 'fec_gallery',
+      password: '123',
+    },
+    pool: {
+      min: 2,
+      max: 10,
     },
     migrations: {
-      directory: './migrations',
+      tableName: 'knex_migrations',
     },
-    seeds: {
-      directory: './seeds'
-    },
-    useNullAsDefault: true
-  }
+  },
+
 };

@@ -2,7 +2,7 @@ require('newrelic');
 const express = require('express');
 const path = require('path');
 const compression = require('compression');
-const { checkCache } = require('../db/redisCache.js');
+// const { checkCache } = require('../db/redisCache.js');
 
 
 const app = express();
@@ -18,7 +18,7 @@ const {
 app.use(compression());
 app.use(express.static(path.join(__dirname, '/../public')));
 
-app.get('/images', checkCache, fetchProductImages);
+app.get('/images', fetchProductImages);
 app.post('/images', addProductImages);
 app.patch('/images', updateProductImages);
 app.delete('/images', deleteProductImages);
